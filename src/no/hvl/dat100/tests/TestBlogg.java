@@ -127,4 +127,56 @@ public class TestBlogg {
 		assertEquals(str,samling.toString());
 		
 	}
+	
+	@Test
+	public void testleggTilUtvid() {
+		Blogg samling = new Blogg(1);
+		
+		Tekst innlegg1 = new Tekst(1,"Ole Olsen","23-10-2019","en tekst");
+		Bilde innlegg2 = new Bilde(2,"Oline Olsen","24-10-2019","et bilde","http://www.picture.com/oo.jpg");
+
+		samling.leggTil(innlegg1);
+		
+		assertFalse(samling.leggTil(innlegg2));
+		assertTrue(samling.leggTilUtvid(innlegg2));
+		
+	}
+	
+	@Test
+	public void testsearch() {
+		
+		int[] forventetResultat1 = {1};
+		int[] forventetResultat2 = {1, 2};
+		int[] forventetResultat3 = {2};
+		
+		Blogg samling = new Blogg(2);
+		
+		Tekst innlegg1 = new Tekst(1,"Ole Olsen","23-10-2019","en tekst");
+		Bilde innlegg2 = new Bilde(2,"Oline Olsen","24-10-2019","et bilde","http://www.picture.com/oo.jpg");
+		
+		samling.leggTil(innlegg1);
+		samling.leggTil(innlegg2);
+		
+		int[] resultat = samling.search("tekst");
+		
+		assertArrayEquals(forventetResultat1, resultat);
+		
+		resultat = samling.search("e");
+		
+		assertArrayEquals(forventetResultat2, resultat);
+		
+		resultat = samling.search("bilde");
+		
+		assertArrayEquals(forventetResultat3, resultat);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
